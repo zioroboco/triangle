@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "engines": {
+    "node": "^12.16.3"
+  },
+  "scripts": {
+    "lint": "tsc && prettier --check '**/*'"
+  },
+  "dependencies": {
+    "@types/node": "*",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.5"
+  }
+}
