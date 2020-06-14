@@ -4,11 +4,24 @@
     "node": "^12.16.3"
   },
   "scripts": {
+    "start": "webpack-dev-server",
     "lint": "tsc && prettier --check '**/*'"
   },
   "dependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
+    "@types/html-webpack-plugin": "*",
     "@types/node": "*",
+    "@types/webpack": "*",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.6.5",
+    "html-webpack-plugin": "^4.3.0",
     "prettier": "^2.0.5",
-    "typescript": "^3.9.5"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }
