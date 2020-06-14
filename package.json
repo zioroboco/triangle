@@ -5,7 +5,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "lint": "tsc && prettier --check '**/*'"
+    "lint": "tsc && eslint . --ext .ts && prettier --check '**/*'",
+    "lint:fix": "tsc && eslint . --ext .ts --fix && prettier --write '**/*'"
   },
   "dependencies": {
     "@babel/core": "^7.10.2",
@@ -14,8 +15,15 @@
     "@types/html-webpack-plugin": "*",
     "@types/node": "*",
     "@types/webpack": "*",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
+    "@typescript-eslint/parser": "^3.2.0",
     "babel-loader": "^8.1.0",
     "core-js": "^3.6.5",
+    "eslint": "^7.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-only-warn": "^1.0.2",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "html-webpack-plugin": "^4.3.0",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
