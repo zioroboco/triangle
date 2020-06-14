@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "test",
+      "cargo": {
+        "args": ["test", "--no-run"],
+        "filter": {
+          "name": "triangle",
+          "kind": "cdylib"
+        }
+      }
+    }
+  ]
+}
