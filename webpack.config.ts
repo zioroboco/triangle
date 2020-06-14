@@ -1,5 +1,6 @@
 import { Configuration } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
+import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
 const config: Configuration = {
   entry: "./client",
@@ -27,7 +28,13 @@ const config: Configuration = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({ template: "client/index.html" })],
+  plugins: [
+    new HtmlWebpackPlugin({ template: "client/index.html" }),
+    new WasmPackPlugin({
+      crateDirectory: __dirname,
+      watchDirectories: ["engine"],
+    }),
+  ],
 }
 
 export default config
