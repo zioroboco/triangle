@@ -4,6 +4,7 @@ import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
 const config: Configuration = {
   entry: "./client",
+  devtool: "source-map",
   resolve: { extensions: [".ts", ".js", ".json", ".wasm"] },
   module: {
     rules: [

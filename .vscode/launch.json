@@ -2,9 +2,21 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "firefox",
+      "request": "attach",
+      "name": "client",
+      "url": "http://localhost:8080",
+      "pathMappings": [
+        {
+          "url": "webpack:///client",
+          "path": "${workspaceFolder}/client"
+        }
+      ]
+    },
+    {
       "type": "lldb",
       "request": "launch",
-      "name": "test",
+      "name": "lldb: test",
       "cargo": {
         "args": ["test", "--no-run"],
         "filter": {
