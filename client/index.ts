@@ -2,25 +2,31 @@ import { Engine } from "@babylonjs/core/Engines/engine"
 
 import("../pkg/index").then(engine => {})
 
-const init = async (canvas: HTMLCanvasElement): Promise<void> => {
-  const { createScene } = await import("./scene")
+const canvas = document.getElementById("main") as HTMLCanvasElement
 
-  const antialias = true
-  const engine = new Engine(canvas, antialias)
+const antialias = true
+const engine = new Engine(canvas, antialias)
+
+const initScene = async (): Promise<void> => {
+  const { createScene } = await import("./scene")
 
   const scene = createScene(canvas, engine)
 
   engine.runRenderLoop(() => {
     scene.render()
   })
+}
 
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-    engine.resize
+if (module.hot) {
+  module.hot.accept(["./scene"], () => {
+    initScene()
   })
 }
 
-const canvas = document.getElementById("main") as HTMLCanvasElement
+initScene()
 
-init(canvas)
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight
+  engine.resize
+})

@@ -1,4 +1,4 @@
-import { Configuration } from "webpack"
+import { Configuration, HotModuleReplacementPlugin } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
@@ -36,12 +36,16 @@ const config: Configuration = {
     ],
   },
   plugins: [
+    new HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({ template: "client/index.html" }),
     new WasmPackPlugin({
       crateDirectory: __dirname,
       watchDirectories: ["engine"],
     }),
   ],
+  devServer: {
+    hot: true,
+  },
 }
 
 export default config
