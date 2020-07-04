@@ -8,6 +8,7 @@
 !*.json
 !*.yaml
 !*.css
+!*.html
 
 # Explicitly ignore...
 **/node_modules/
