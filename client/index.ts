@@ -1,5 +1,4 @@
 import {
-  ArcRotateCamera,
   Color3,
   Color4,
   Engine,
@@ -7,6 +6,7 @@ import {
   Mesh,
   MeshBuilder,
   Scene,
+  UniversalCamera,
   Vector3,
 } from "babylonjs"
 
@@ -24,14 +24,9 @@ const createScene = (): Scene => {
   const scene = new Scene(engine)
   scene.clearColor = Color4.FromColor3(Color3.Black())
 
-  const camera = new ArcRotateCamera(
-    "camera",
-    Math.PI / 2,
-    Math.PI / 2,
-    2,
-    Vector3.Zero(),
-    scene
-  )
+  const camera = new UniversalCamera("camera", new Vector3(2, 0, 0), scene)
+  camera.setTarget(new Vector3(0, 0, 0))
+  camera.attachControl(canvas, true)
 
   var light: HemisphericLight = new HemisphericLight(
     "light",
