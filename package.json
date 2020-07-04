@@ -5,8 +5,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "lint": "tsc && eslint . --ext .ts && prettier --check '**/*'",
-    "lint:fix": "tsc && eslint . --ext .ts --fix && prettier --write '**/*'"
+    "lint": "tsc && tsc -p client && eslint . --ext .ts && prettier --check '**/*'",
+    "lint:fix": "tsc && tsc -p client eslint . --ext .ts --fix && prettier --write '**/*'"
   },
   "dependencies": {
     "@babel/core": "^7.10.4",

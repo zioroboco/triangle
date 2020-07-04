@@ -54,4 +54,6 @@ window.addEventListener("resize", () => {
   engine.resize
 })
 
-import("../pkg").then(engine => {})
+import("../pkg/index").then(engine => {})
+
+export default {}
