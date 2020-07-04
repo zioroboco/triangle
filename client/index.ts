@@ -2,11 +2,11 @@ import {
   Color3,
   Color4,
   Engine,
+  FlyCamera,
   HemisphericLight,
   Mesh,
   MeshBuilder,
   Scene,
-  UniversalCamera,
   Vector3,
 } from "babylonjs"
 
@@ -22,17 +22,22 @@ const createScene = (): Scene => {
   const scene = new Scene(engine)
   scene.clearColor = Color4.FromColor3(Color3.Black())
 
-  const camera = new UniversalCamera("camera", new Vector3(2, 0, 0), scene)
+  const camera = new FlyCamera("camera", new Vector3(2, 0, 0), scene)
   camera.setTarget(new Vector3(0, 0, 0))
   camera.attachControl(canvas, true)
+  camera.speed = 0.2
 
-  var light: HemisphericLight = new HemisphericLight(
+  const light: HemisphericLight = new HemisphericLight(
     "light",
     new Vector3(1, 1, 0),
     scene
   )
 
-  var sphere: Mesh = MeshBuilder.CreateSphere("sphere", { diameter: 1 }, scene)
+  const sphere: Mesh = MeshBuilder.CreateSphere(
+    "sphere",
+    { diameter: 1 },
+    scene
+  )
 
   return scene
 }
