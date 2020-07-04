@@ -2,9 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "chrome",
+      "type": "pwa-chrome",
+      "request": "attach",
+      "port": 9222,
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "firefox",
       "type": "firefox",
       "request": "attach",
-      "name": "client",
       "url": "http://localhost:8080",
       "pathMappings": [
         {

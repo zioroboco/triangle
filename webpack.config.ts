@@ -19,7 +19,7 @@ const config: Configuration = {
                 {
                   useBuiltIns: "usage",
                   corejs: { version: 3 },
-                  targets: { browsers: "firefox 78" },
+                  targets: { browsers: ["firefox 78", "chrome 86"] },
                 },
               ],
               "@babel/preset-typescript",
