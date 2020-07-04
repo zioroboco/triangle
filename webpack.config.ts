@@ -2,6 +2,12 @@ import { Configuration } from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
+const browsers = (() => {
+  if (process.argv.indexOf("--chrome") >= 0) return ["chrome 86"]
+  if (process.argv.indexOf("--firefox") >= 0) return ["firefox 78"]
+  return ["chrome", "firefox"].map(browser => `last 2 ${browser} versions`)
+})()
+
 const config: Configuration = {
   entry: "./client",
   devtool: "source-map",
@@ -19,7 +25,7 @@ const config: Configuration = {
                 {
                   useBuiltIns: "usage",
                   corejs: { version: 3 },
-                  targets: { browsers: ["firefox 78", "chrome 86"] },
+                  targets: { browsers },
                 },
               ],
               "@babel/preset-typescript",
