@@ -1,7 +1,7 @@
 import { Engine } from "@babylonjs/core/Engines/engine"
 import { Scene } from "@babylonjs/core/scene"
 
-import("../pkg/index").then(engine => {})
+import("../../pkg/index").then(engine => {})
 
 const canvas = document.getElementById("main") as HTMLCanvasElement
 

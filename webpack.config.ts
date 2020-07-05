@@ -3,7 +3,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
 const config: Configuration = {
-  entry: "./client",
+  entry: "./client/src/main",
   devtool: "source-map",
   resolve: { extensions: [".ts", ".js", ".json", ".wasm"] },
   module: {
