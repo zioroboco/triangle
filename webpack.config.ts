@@ -27,6 +27,10 @@ const config: Configuration = {
       watchDirectories: ["engine"],
     }),
   ],
+  output: {
+    filename: "main.js",
+    chunkFilename: "[id].chunk.js",
+  },
   devServer: {
     hot: true,
   },
