@@ -1,20 +1,24 @@
+import { FlyCamera } from "@babylonjs/core/Cameras/flyCamera"
 import { Scene } from "@babylonjs/core/scene"
-import { UniversalCamera } from "@babylonjs/core/Cameras/universalCamera"
 import { codes } from "keycode"
 
 import { State } from "./types"
 
-export const setupCamera = (state: State, scene: Scene): UniversalCamera => {
-  const camera = new UniversalCamera("camera", state.camera.position, scene)
+export type CameraType = FlyCamera
+
+export const setupCamera = (state: State, scene: Scene): CameraType => {
+  const camera = new FlyCamera("camera", state.camera.position, scene)
   camera.setTarget(state.camera.target)
   setupControls(camera)
   return camera
 }
 
-const setupControls = (camera: UniversalCamera) => {
-  camera.keysUp = [codes.w]
-  camera.keysDown = [codes.s]
+const setupControls = (camera: CameraType) => {
+  camera.keysUp = [codes.e]
+  camera.keysDown = [codes.q]
+  camera.keysForward = [codes.w]
+  camera.keysBackward = [codes.s]
   camera.keysLeft = [codes.a]
   camera.keysRight = [codes.d]
-  camera.speed = 0.2
+  camera.speed = 0.1
 }

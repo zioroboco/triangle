@@ -3,8 +3,8 @@ import { Nullable } from "@babylonjs/core/types"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
+import { CameraType, setupCamera } from "./camera"
 import { State } from "./types"
-import { setupCamera } from "./camera"
 
 import("../../pkg/index").then(engine => {})
 
@@ -25,7 +25,7 @@ const init = (state: State): Promise<void> =>
   )
 
 const getState = (scene: Scene): State => {
-  const camera = scene.activeCamera as ReturnType<typeof setupCamera>
+  const camera = scene.activeCamera as CameraType
   return {
     camera: {
       position: camera.position,
