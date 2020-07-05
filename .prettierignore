@@ -11,6 +11,7 @@
 !*.html
 
 # Explicitly ignore...
+**/dist/
 **/node_modules/
 **/pkg/
 **/target/
