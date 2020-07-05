@@ -1,9 +1,10 @@
 import { Engine } from "@babylonjs/core/Engines/engine"
+import { Nullable } from "@babylonjs/core/types"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
 import { State } from "./types"
-import { initCamera } from "./camera"
+import { setupCamera } from "./camera"
 
 import("../../pkg/index").then(engine => {})
 
@@ -12,25 +13,19 @@ const canvas = document.getElementById("main") as HTMLCanvasElement
 const antialias = true
 const baby = new Engine(canvas, antialias)
 
-const initScene = async (state: State): Promise<void> => {
-  const [{ createScene }, { initCamera }] = await Promise.all([
-    import("./scene"),
-    import("./camera"),
-  ])
-  const scene = createScene(baby)
-  initCamera(state, scene).attachControl(canvas)
-  baby.runRenderLoop(() => scene.render())
-}
+let scene: Nullable<Scene> = null
 
-initScene({
-  camera: {
-    position: new Vector3(2, 0, 0),
-    target: new Vector3(0, 0, 0),
-  },
-})
+const init = (state: State): Promise<void> =>
+  Promise.all([import("./scene"), import("./camera")]).then(
+    ([{ setupScene }, { setupCamera }]) => {
+      scene = setupScene(baby)
+      setupCamera(state, scene).attachControl(canvas)
+      baby.runRenderLoop(() => scene!.render())
+    }
+  )
 
 const getState = (scene: Scene): State => {
-  const camera = scene.activeCamera as ReturnType<typeof initCamera>
+  const camera = scene.activeCamera as ReturnType<typeof setupCamera>
   return {
     camera: {
       position: camera.position,
@@ -39,18 +34,23 @@ const getState = (scene: Scene): State => {
   }
 }
 
+init({
+  camera: {
+    position: new Vector3(2, 0, 0),
+    target: new Vector3(0, 0, 0),
+  },
+})
+
 if (module.hot) {
   module.hot.accept("./scene", () => {
-    const scene = baby.scenes[0]
-    const state = getState(scene)
-    scene.dispose()
-    initScene(state)
+    const state = getState(scene!)
+    scene!.dispose()
+    init(state)
   })
   module.hot.accept("./camera", () => {
-    const scene = baby.scenes[0]
-    const state = getState(scene)
-    scene.activeCamera?.dispose()
-    initCamera(state, scene).attachControl(canvas)
+    const state = getState(scene!)
+    scene!.activeCamera!.dispose()
+    setupCamera(state, scene!).attachControl(canvas)
   })
 }
 

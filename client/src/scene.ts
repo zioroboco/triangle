@@ -7,7 +7,7 @@ import { Scene } from "@babylonjs/core/scene"
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
-export const createScene = (baby: Engine): Scene => {
+export const setupScene = (baby: Engine): Scene => {
   const scene = new Scene(baby)
   scene.clearColor = Color4.FromColor3(Color3.Black())
 

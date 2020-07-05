@@ -4,13 +4,17 @@ import { codes } from "keycode"
 
 import { State } from "./types"
 
-export const initCamera = (state: State, scene: Scene): UniversalCamera => {
+export const setupCamera = (state: State, scene: Scene): UniversalCamera => {
   const camera = new UniversalCamera("camera", state.camera.position, scene)
   camera.setTarget(state.camera.target)
-  camera.speed = 0.2
+  setupControls(camera)
+  return camera
+}
+
+const setupControls = (camera: UniversalCamera) => {
   camera.keysUp = [codes.w]
   camera.keysDown = [codes.s]
   camera.keysLeft = [codes.a]
   camera.keysRight = [codes.d]
-  return camera
+  camera.speed = 0.2
 }
