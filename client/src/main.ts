@@ -1,8 +1,7 @@
 import { Engine } from "@babylonjs/core/Engines/engine"
-import { UniversalCamera } from "@babylonjs/core/Cameras/universalCamera"
+import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
-import { Scene } from "@babylonjs/core/scene"
 import { State } from "./types"
 import { initCamera } from "./camera"
 
@@ -31,7 +30,7 @@ initScene({
 })
 
 const getState = (scene: Scene): State => {
-  const camera = scene.activeCamera as UniversalCamera
+  const camera = scene.activeCamera as ReturnType<typeof initCamera>
   return {
     camera: {
       position: camera.position,
