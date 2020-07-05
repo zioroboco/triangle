@@ -3,8 +3,11 @@
   "compilerOptions": {
     "lib": ["esnext", "dom"],
     "module": "esnext",
+    "target": "esnext",
     "moduleResolution": "node",
-    "isolatedModules": true
+    "isolatedModules": true,
+    "sourceMap": true,
+    "noEmit": false
   },
   "include": ["./**/*"]
 }
