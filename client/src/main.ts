@@ -6,16 +6,16 @@ import("../../pkg/index").then(engine => {})
 const canvas = document.getElementById("main") as HTMLCanvasElement
 
 const antialias = true
-const engine = new Engine(canvas, antialias)
+const baby = new Engine(canvas, antialias)
 
 let scene: Scene | undefined
 
 const initScene = async (): Promise<void> => {
   const { createScene } = await import("./scene")
 
-  scene = createScene(canvas, engine)
+  scene = createScene(canvas, baby)
 
-  engine.runRenderLoop(() => {
+  baby.runRenderLoop(() => {
     if (!scene) {
       throw new Error(`attempted to render scene with value: ${scene}`)
     }
@@ -35,5 +35,5 @@ initScene()
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
-  engine.resize
+  baby.resize
 })
