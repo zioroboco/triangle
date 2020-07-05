@@ -3,11 +3,10 @@
   "compilerOptions": {
     "lib": ["esnext", "dom"],
     "module": "esnext",
-    "target": "esnext",
+    "target": "es2019",
     "moduleResolution": "node",
     "isolatedModules": true,
-    "sourceMap": true,
-    "noEmit": false
+    "sourceMap": true
   },
   "include": ["./**/*"]
 }

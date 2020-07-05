@@ -5,8 +5,7 @@
     "skipLibCheck": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strict": true,
-    "noEmit": true
+    "strict": true
   },
   "include": ["webpack.config.ts"]
 }

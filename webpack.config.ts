@@ -13,6 +13,7 @@ const config: Configuration = {
         use: {
           loader: "ts-loader",
           options: {
+            configFile: "client/tsconfig.json",
             transpileOnly: true,
           },
         },

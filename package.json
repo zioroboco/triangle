@@ -5,8 +5,10 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "lint": "tsc && tsc -p client && eslint . --ext .ts && prettier --check '**/*'",
-    "lint:fix": "tsc && tsc -p client eslint . --ext .ts --fix && prettier --write '**/*'"
+    "tsc:client": "tsc -p ./client/tsconfig.json --noEmit",
+    "tsc:node": "tsc -p ./tsconfig.json --noEmit",
+    "lint": "yarn -s tsc:client && yarn -s tsc:node && eslint . --ext .ts && prettier --check '**/*'",
+    "lint:fix": "yarn -s tsc:client && yarn -s tsc:node && eslint . --ext .ts --fix && prettier --write '**/*'"
   },
   "dependencies": {
     "@babylonjs/core": "^4.1.0",
