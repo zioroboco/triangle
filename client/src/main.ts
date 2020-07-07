@@ -14,7 +14,7 @@ import("../../pkg/index").then(engine => {})
 const canvas = document.getElementById("main") as HTMLCanvasElement
 
 const antialias = true
-const baby = new Engine(canvas, antialias)
+let baby = new Engine(canvas, antialias)
 
 let scene: Nullable<Scene> = null
 
@@ -46,7 +46,8 @@ init({
 if (module.hot) {
   module.hot.accept("./scene", () => {
     const state = getState(scene!)
-    scene!.dispose()
+    baby.dispose()
+    baby = new Engine(canvas, antialias)
     init(state)
   })
   module.hot.accept("./camera", () => {
