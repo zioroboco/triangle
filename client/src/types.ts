@@ -5,4 +5,5 @@ export type State = {
     position: Vector3
     target: Vector3
   }
+  inspector?: boolean
 }

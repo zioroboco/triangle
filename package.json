@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@babylonjs/core": "^4.1.0",
+    "@babylonjs/inspector": "^4.1.0",
     "@types/html-webpack-plugin": "*",
     "@types/node": "*",
     "@types/webpack-dev-server": "*",

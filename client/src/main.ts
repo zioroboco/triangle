@@ -1,7 +1,9 @@
+import "@babylonjs/inspector"
 import { Engine } from "@babylonjs/core/Engines/engine"
 import { Nullable } from "@babylonjs/core/types"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
+import { codes } from "keycode"
 
 import { CameraType, setupCamera } from "./camera"
 import { State } from "./types"
@@ -18,6 +20,7 @@ let scene: Nullable<Scene> = null
 
 const init = (state: State) => {
   scene = setupScene(baby)
+  if (state.inspector) scene.debugLayer.show()
   setupCamera(state, scene).attachControl(canvas)
   baby.runRenderLoop(() => scene!.render())
 }
@@ -29,6 +32,7 @@ const getState = (scene: Scene): State => {
       position: camera.position,
       target: camera.getTarget(),
     },
+    inspector: scene?.debugLayer.isVisible(),
   }
 }
 
@@ -51,6 +55,16 @@ if (module.hot) {
     setupCamera(state, scene!).attachControl(canvas)
   })
 }
+
+window.addEventListener("keydown", event => {
+  if (event.keyCode === codes["\\"] && scene) {
+    if (scene.debugLayer.isVisible()) {
+      scene.debugLayer.hide()
+    } else {
+      scene.debugLayer.show()
+    }
+  }
+})
 
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth
