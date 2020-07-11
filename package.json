@@ -14,7 +14,6 @@
     "@babylonjs/core": "^4.1.0",
     "@types/html-webpack-plugin": "*",
     "@types/node": "*",
-    "@types/webpack": "*",
     "@types/webpack-dev-server": "*",
     "@types/webpack-env": "*",
     "@typescript-eslint/eslint-plugin": "^3.5.0",
@@ -31,7 +30,7 @@
     "ts-loader": "^7.0.5",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6",
-    "webpack": "^4.43.0",
+    "webpack": "^5.0.0-beta.22",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
   }

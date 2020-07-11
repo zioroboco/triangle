@@ -1,4 +1,8 @@
-import { Configuration, HotModuleReplacementPlugin } from "webpack"
+import {
+  Configuration,
+  HotModuleReplacementPlugin,
+  WebpackPluginInstance,
+} from "webpack"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
@@ -6,6 +10,7 @@ const config: Configuration = {
   entry: "./client/src/main",
   devtool: "source-map",
   resolve: { extensions: [".ts", ".js", ".json", ".wasm"] },
+  experiments: { asyncWebAssembly: true },
   module: {
     rules: [
       {
@@ -26,7 +31,7 @@ const config: Configuration = {
     new WasmPackPlugin({
       crateDirectory: __dirname,
       watchDirectories: ["engine"],
-    }),
+    }) as WebpackPluginInstance,
   ],
   output: {
     filename: "main.js",

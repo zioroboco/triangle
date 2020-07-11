@@ -5,6 +5,7 @@ import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
 import { CameraType, setupCamera } from "./camera"
 import { State } from "./types"
+import { setupScene } from "./scene"
 
 import("../../pkg/index").then(engine => {})
 
@@ -15,14 +16,11 @@ const baby = new Engine(canvas, antialias)
 
 let scene: Nullable<Scene> = null
 
-const init = (state: State): Promise<void> =>
-  Promise.all([import("./scene"), import("./camera")]).then(
-    ([{ setupScene }, { setupCamera }]) => {
-      scene = setupScene(baby)
-      setupCamera(state, scene).attachControl(canvas)
-      baby.runRenderLoop(() => scene!.render())
-    }
-  )
+const init = (state: State) => {
+  scene = setupScene(baby)
+  setupCamera(state, scene).attachControl(canvas)
+  baby.runRenderLoop(() => scene!.render())
+}
 
 const getState = (scene: Scene): State => {
   const camera = scene.activeCamera as CameraType
