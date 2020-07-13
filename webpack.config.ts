@@ -36,6 +36,11 @@ const config: Configuration = {
       watchDirectories: ["engine"],
     }) as WebpackPluginInstance,
   ],
+  optimization: {
+    splitChunks: {
+      chunks: "async",
+    },
+  },
   experiments: {
     asyncWebAssembly: true,
     importAsync: true,
