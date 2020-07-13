@@ -9,8 +9,6 @@ import { CameraType, setupCamera } from "./camera"
 import { State } from "./types"
 import { setupScene } from "./scene"
 
-import("../../pkg/index").then(engine => {})
-
 const canvas = document.getElementById("main") as HTMLCanvasElement
 
 const antialias = true

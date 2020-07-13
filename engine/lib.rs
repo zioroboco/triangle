@@ -18,6 +18,6 @@ pub fn main() -> Result<(), JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn message() -> JsValue {
-    JsValue::from_str(TRIANGLE)
+pub fn rate() -> JsValue {
+    JsValue::from_f64(0.01)
 }
