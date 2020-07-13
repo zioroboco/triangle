@@ -13,7 +13,8 @@
   "dependencies": {
     "@babylonjs/core": "^4.1.0",
     "@babylonjs/inspector": "^4.1.0",
-    "keycode": "^2.2.0"
+    "keycode": "^2.2.0",
+    "rxjs": "^7.0.0-beta.2"
   },
   "devDependencies": {
     "@types/html-webpack-plugin": "*",
