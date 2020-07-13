@@ -9,8 +9,9 @@ import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 const config: Configuration = {
   entry: "./client/src/main",
   devtool: "source-map",
-  resolve: { extensions: [".ts", ".js", ".json", ".wasm"] },
-  experiments: { asyncWebAssembly: true },
+  resolve: {
+    extensions: [".ts", ".js", ".json", ".wasm"],
+  },
   module: {
     rules: [
       {
@@ -27,15 +28,18 @@ const config: Configuration = {
   },
   plugins: [
     new HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({ template: "client/index.html" }),
+    new HtmlWebpackPlugin({
+      template: "client/index.html",
+    }),
     new WasmPackPlugin({
       crateDirectory: __dirname,
       watchDirectories: ["engine"],
     }) as WebpackPluginInstance,
   ],
-  output: {
-    filename: "main.js",
-    chunkFilename: "[id].chunk.js",
+  experiments: {
+    asyncWebAssembly: true,
+    importAsync: true,
+    importAwait: true,
   },
   devServer: {
     hot: true,
