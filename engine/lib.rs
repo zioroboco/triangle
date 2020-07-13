@@ -1,3 +1,5 @@
+#![allow(unused_unsafe)]
+
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
@@ -8,7 +10,9 @@ pub fn main() -> Result<(), JsValue> {
     #[cfg(debug_assertions)]
     console_error_panic_hook::set_once();
 
-    console::log_1(&JsValue::from_str(TRIANGLE));
+    unsafe {
+        console::log_1(&JsValue::from_str(TRIANGLE));
+    }
 
     Ok(())
 }
