@@ -1,4 +1,4 @@
-import { rate$ } from "./scene"
+import { rate$ } from "./broker"
 
 import("../../pkg").then(lib => {
   rate$.next(lib.rate())

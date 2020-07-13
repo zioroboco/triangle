@@ -1,5 +1,4 @@
 import "@babylonjs/core/Materials/standardMaterial"
-import { BehaviorSubject } from "rxjs"
 import { Color3, Color4 } from "@babylonjs/core/Maths/math.color"
 import { Engine } from "@babylonjs/core/Engines/engine"
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight"
@@ -7,11 +6,9 @@ import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
-export const rate$: BehaviorSubject<number> = new BehaviorSubject(0)
-
 export const setupScene = (baby: Engine): Scene => {
   let rate = 0
-  import("./bindings").then(() => {
+  import("./broker").then(({ rate$ }) => {
     rate$.subscribe(n => (rate = n))
   })
 
