@@ -1,6 +1,8 @@
 import "./bindings"
-import { BehaviorSubject } from "rxjs"
+import * as subject from "most-subject"
+import { tap } from "@most/core"
 
-export const rate$: BehaviorSubject<number> = new BehaviorSubject(0)
+const logUpdate = <T>(x: T) => console.log("Update: ", x)
+const [sink, stream] = subject.create(tap<number>(logUpdate))
 
-module.hot?.accept()
+export { sink, stream }

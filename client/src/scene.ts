@@ -4,12 +4,22 @@ import { Engine } from "@babylonjs/core/Engines/engine"
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight"
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder"
 import { Scene } from "@babylonjs/core/scene"
+import { Scheduler } from "@most/types"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
-export const setupScene = (baby: Engine): Scene => {
+export const setupScene = (baby: Engine, scheduler: Scheduler): Scene => {
   let rate = 0
-  import("./broker").then(({ rate$ }) => {
-    rate$.subscribe(n => (rate = n))
+  import("./broker").then(({ stream }) => {
+    stream.run(
+      {
+        event: (_, value) => {
+          rate = value
+        },
+        end: () => {},
+        error: () => {},
+      },
+      scheduler
+    )
   })
 
   const scene = new Scene(baby)
