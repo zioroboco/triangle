@@ -1,10 +1,21 @@
-import * as subject from "most-subject"
-import { now } from "@most/core"
-import { sink } from "./broker"
+import * as broker from "./broker"
+import { Nullable } from "@babylonjs/core/types"
+import { Observer } from "@babylonjs/core/Misc/observable"
+import { Scene } from "@babylonjs/core/scene"
+
+let obs: Nullable<Observer<Scene>>
 
 import("../../pkg").then(lib => {
-  const origin = now(lib.rate())
-  subject.attach(sink, origin)
+  broker.ready.then(scene => {
+    obs = scene.onBeforeRenderObservable.add(({ deltaTime }) => {
+      broker.next(lib.rotation(deltaTime))
+    })
+  })
 })
 
-module.hot?.accept()
+if (module.hot) {
+  module.hot.accept()
+  module.hot.addDisposeHandler(() => {
+    if (obs) obs.unregisterOnNextCall = true
+  })
+}

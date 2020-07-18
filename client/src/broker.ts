@@ -1,8 +1,22 @@
 import "./bindings"
 import * as subject from "most-subject"
-import { tap } from "@most/core"
+import { Scene } from "@babylonjs/core/scene"
+import { currentTime, newDefaultScheduler } from "@most/scheduler"
 
-const logUpdate = <T>(x: T) => console.log("Update: ", x)
-const [sink, stream] = subject.create(tap<number>(logUpdate))
+export const scheduler = newDefaultScheduler()
 
-export { sink, stream }
+let resolveScene: (value: Scene) => void
+export const ready = new Promise<Scene>((resolve, _) => {
+  resolveScene = resolve
+})
+
+export const init = (scene: Scene) => {
+  resolveScene(scene)
+  return scheduler
+}
+
+export const [sink, stream] = subject.create<number>()
+
+export const next = (n: number) => {
+  subject.event(currentTime(scheduler), n, sink)
+}

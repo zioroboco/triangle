@@ -4,24 +4,9 @@ import { Engine } from "@babylonjs/core/Engines/engine"
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight"
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder"
 import { Scene } from "@babylonjs/core/scene"
-import { Scheduler } from "@most/types"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
-export const setupScene = (baby: Engine, scheduler: Scheduler): Scene => {
-  let rate = 0
-  import("./broker").then(({ stream }) => {
-    stream.run(
-      {
-        event: (_, value) => {
-          rate = value
-        },
-        end: () => {},
-        error: () => {},
-      },
-      scheduler
-    )
-  })
-
+export const setupScene = (baby: Engine): Scene => {
   const scene = new Scene(baby)
   scene.clearColor = Color4.FromColor3(Color3.Black())
 
@@ -30,8 +15,18 @@ export const setupScene = (baby: Engine, scheduler: Scheduler): Scene => {
   const poly = MeshBuilder.CreateDisc("poly", { tessellation: 3 }, scene)
   poly.rotate(Vector3.Forward(), Math.PI / 2)
 
-  scene.onBeforeRenderObservable.add(() => {
-    poly.rotate(Vector3.Forward(), rate)
+  import("./broker").then(({ stream, init }) => {
+    const scheduler = init(scene)
+    stream.run(
+      {
+        event: (_, amount) => {
+          poly.rotate(Vector3.Forward(), amount)
+        },
+        end: () => {},
+        error: () => {},
+      },
+      scheduler
+    )
   })
 
   return scene

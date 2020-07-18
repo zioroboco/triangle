@@ -18,6 +18,7 @@ pub fn main() -> Result<(), JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn rate() -> JsValue {
-    JsValue::from_f64(0.01)
+pub fn rotation(delta_time: JsValue) -> JsValue {
+    let dt = delta_time.as_f64().unwrap() / 1000.0;
+    JsValue::from_f64(1.0 * dt)
 }

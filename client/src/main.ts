@@ -4,13 +4,10 @@ import { Nullable } from "@babylonjs/core/types"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 import { codes } from "keycode"
-import { newDefaultScheduler } from "@most/scheduler"
 
 import { CameraType, setupCamera } from "./camera"
 import { State } from "./types"
 import { setupScene } from "./scene"
-
-const scheduler = newDefaultScheduler()
 
 const canvas = document.getElementById("main") as HTMLCanvasElement
 
@@ -20,7 +17,7 @@ let baby = new Engine(canvas, antialias)
 let scene: Nullable<Scene> = null
 
 const init = (state: State) => {
-  scene = setupScene(baby, scheduler)
+  scene = setupScene(baby)
   if (state.inspector) scene.debugLayer.show()
   setupCamera(state, scene).attachControl(canvas)
   baby.runRenderLoop(() => scene!.render())
