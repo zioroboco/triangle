@@ -307,6 +307,13 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.3.tgz#b755a0934564a200d3efdf88546ec93c369abd03"
   integrity sha512-7s9EQWupR1fTc2pSMtXRQ9w9gLOcrJn+h7HOXw4evxyvVqMi4f+q7d2tnFe3ng3SNHjtK+0EzGMGFUQX4/AQRA==
 
+"@types/ramda@^0.27.11":
+  version "0.27.11"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.11.tgz#a2efedc1fecc0faa2d3530eb53cf468e219f7c51"
+  integrity sha512-pojA0+wBhjMWfwZ1tAea/OdUqZxaRQOi/vHldthrOIEPdRQdJb/hvU4yM1uHKGTT89ZZpxe43KM1sq5YGxS5lw==
+  dependencies:
+    ts-toolbelt "^6.3.3"
+
 "@types/range-parser@*":
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
@@ -3750,6 +3757,11 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
+ramda@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
+
 randombytes@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -4583,6 +4595,11 @@ ts-node@^8.10.2:
     make-error "^1.1.1"
     source-map-support "^0.5.17"
     yn "3.1.1"
+
+ts-toolbelt@^6.3.3:
+  version "6.13.21"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.13.21.tgz#8213a2c5b886d1c087fa5ecfbe8487121e1f2748"
+  integrity sha512-8M7MDW7A9Tg3XpsebBgVdgU01z88tMUzvxLcmf369of3wUyfinQ9cbJpRsbmDGGAak4ssNgXaHXGUaGfD8BpGg==
 
 tsconfig-paths@^3.9.0:
   version "3.9.0"

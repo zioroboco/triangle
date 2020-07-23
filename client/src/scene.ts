@@ -14,7 +14,6 @@ export const setupScene = (baby: Engine): Scene => {
 
   const box = MeshBuilder.CreateBox("box", { size: 0.3 }, scene)
   box.rotate(Vector3.Forward(), Math.PI / 2)
-  box.position = Vector3.Up().scale(0.5)
 
   const spheres = [
     MeshBuilder.CreateSphere("one", { diameter: 0.1 }, scene),

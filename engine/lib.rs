@@ -32,6 +32,21 @@ pub fn main() -> Result<(), JsValue> {
     Ok(())
 }
 
+#[wasm_bindgen]
+pub fn init(i: JsValue, x: JsValue, y: JsValue, v_x: JsValue, v_y: JsValue) -> () {
+    let x: f64 = x.as_f64().unwrap();
+    let y: f64 = y.as_f64().unwrap();
+    let v_x: f64 = v_x.as_f64().unwrap();
+    let v_y: f64 = v_y.as_f64().unwrap();
+    unsafe {
+        let i: usize = i.as_f64().unwrap().to_int_unchecked();
+        P_X[i] = x;
+        P_Y[i] = y;
+        V_X[i] = v_x;
+        V_Y[i] = v_y;
+    }
+}
+
 static MU: f64 = 10.0;
 
 #[wasm_bindgen]
@@ -41,10 +56,8 @@ pub fn update(delta_time: JsValue) -> () {
         unsafe {
             let p = Vector2::new(P_X[i], P_Y[i]);
             let v = Vector2::new(V_X[i], V_Y[i]);
-
             let a: f64 = MU / p.norm_squared();
             let v_next: Vector2<f64> = v + -p.normalize() * a * dt;
-
             V_X[i] = v_next.x;
             V_Y[i] = v_next.y;
             P_X[i] += v_next.x * dt;
@@ -61,6 +74,16 @@ pub fn xs() -> Float64Array {
 #[wasm_bindgen]
 pub fn ys() -> Float64Array {
     unsafe { Float64Array::view(&P_Y) }
+}
+
+#[wasm_bindgen]
+pub fn v_xs() -> Float64Array {
+    unsafe { Float64Array::view(&V_X) }
+}
+
+#[wasm_bindgen]
+pub fn v_ys() -> Float64Array {
+    unsafe { Float64Array::view(&V_Y) }
 }
 
 #[wasm_bindgen]

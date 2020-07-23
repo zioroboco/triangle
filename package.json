@@ -16,8 +16,10 @@
     "@most/core": "^1.5.0",
     "@most/scheduler": "^1.2.3",
     "@most/types": "^1.0.2",
+    "@types/ramda": "^0.27.11",
     "keycode": "^2.2.0",
-    "most-subject": "^6.0.0"
+    "most-subject": "^6.0.0",
+    "ramda": "^0.27.0"
   },
   "devDependencies": {
     "@types/html-webpack-plugin": "*",
