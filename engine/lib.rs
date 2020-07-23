@@ -1,13 +1,17 @@
 #![allow(unused_unsafe)]
 
-use js_sys::Uint8Array;
+use js_sys::Float64Array;
+use nalgebra::Vector2;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
 const TRIANGLE: &str = "△";
 
-const BUFFER_SIZE: usize = 8;
-static mut BUFFER: [u8; BUFFER_SIZE] = [0; BUFFER_SIZE];
+const N: usize = 2;
+static mut V_X: [f64; N] = [0.0; N];
+static mut V_Y: [f64; N] = [0.0; N];
+static mut P_X: [f64; N] = [0.0; N];
+static mut P_Y: [f64; N] = [0.0; N];
 
 #[wasm_bindgen(start)]
 pub fn main() -> Result<(), JsValue> {
@@ -16,21 +20,47 @@ pub fn main() -> Result<(), JsValue> {
 
     unsafe {
         console::log_1(&JsValue::from_str(TRIANGLE));
-        for n in 0..BUFFER_SIZE {
-            BUFFER[n] = 10 + (n as u8);
-            console::log_1(&JsValue::from_str(&format!(
-                "{} -> BUFFER[{}]",
-                BUFFER[n], n
-            )));
+        for i in 0..N {
+            let d = ((i as i8) * 2 - 1) as f64; // ±1.0
+            V_X[i] = 0.0;
+            V_Y[i] = 1.5 * d;
+            P_X[i] = 2.0 * d;
+            P_Y[i] = 0.0;
         }
     }
 
     Ok(())
 }
 
+static MU: f64 = 10.0;
+
 #[wasm_bindgen]
-pub fn view() -> Uint8Array {
-    unsafe { js_sys::Uint8Array::view(&BUFFER) }
+pub fn update(delta_time: JsValue) -> () {
+    let dt = delta_time.as_f64().unwrap() / 1000.0; // seconds
+    for i in 0..N {
+        unsafe {
+            let p = Vector2::new(P_X[i], P_Y[i]);
+            let v = Vector2::new(V_X[i], V_Y[i]);
+
+            let a: f64 = MU / p.norm_squared();
+            let v_next: Vector2<f64> = v + -p.normalize() * a * dt;
+
+            V_X[i] = v_next.x;
+            V_Y[i] = v_next.y;
+            P_X[i] += v_next.x * dt;
+            P_Y[i] += v_next.y * dt;
+        }
+    }
+}
+
+#[wasm_bindgen]
+pub fn xs() -> Float64Array {
+    unsafe { Float64Array::view(&P_X) }
+}
+
+#[wasm_bindgen]
+pub fn ys() -> Float64Array {
+    unsafe { Float64Array::view(&P_Y) }
 }
 
 #[wasm_bindgen]

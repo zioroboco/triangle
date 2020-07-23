@@ -12,15 +12,22 @@ export const setupScene = (baby: Engine): Scene => {
 
   new HemisphericLight("light", new Vector3(0, 1, -1), scene)
 
-  const poly = MeshBuilder.CreateDisc("poly", { tessellation: 3 }, scene)
-  poly.rotate(Vector3.Forward(), Math.PI / 2)
+  const box = MeshBuilder.CreateBox("box", { size: 0.3 }, scene)
+  box.rotate(Vector3.Forward(), Math.PI / 2)
+  box.position = Vector3.Up().scale(0.5)
+
+  const spheres = [
+    MeshBuilder.CreateSphere("one", { diameter: 0.1 }, scene),
+    MeshBuilder.CreateSphere("two", { diameter: 0.1 }, scene),
+  ]
 
   import("./broker").then(({ stream, init }) => {
     const scheduler = init(scene)
     stream.run(
       {
-        event: (_, amount) => {
-          poly.rotate(Vector3.Forward(), amount)
+        event: (_, { positions, rotation }) => {
+          box.rotate(Vector3.Right(), rotation)
+          positions.forEach((p, i) => (spheres[i].position = p))
         },
         end: () => {},
         error: () => {},

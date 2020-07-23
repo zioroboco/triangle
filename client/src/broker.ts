@@ -1,6 +1,7 @@
 import "./bindings"
 import * as subject from "most-subject"
 import { Scene } from "@babylonjs/core/scene"
+import { World } from "./types"
 import { currentTime, newDefaultScheduler } from "@most/scheduler"
 
 export const scheduler = newDefaultScheduler()
@@ -15,8 +16,8 @@ export const init = (scene: Scene) => {
   return scheduler
 }
 
-export const [sink, stream] = subject.create<number>()
+export const [sink, stream] = subject.create<World>()
 
-export const next = (n: number) => {
-  subject.event(currentTime(scheduler), n, sink)
+export const next = (w: World) => {
+  subject.event(currentTime(scheduler), w, sink)
 }

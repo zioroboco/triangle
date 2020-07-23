@@ -7,3 +7,8 @@ export type State = {
   }
   inspector?: boolean
 }
+
+export type World = {
+  positions: Vector3[]
+  rotation: number
+}
