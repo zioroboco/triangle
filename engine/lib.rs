@@ -1,5 +1,8 @@
 #![allow(unused_unsafe)]
 
+mod util;
+use util::*;
+
 use js_sys::Float64Array;
 use nalgebra::Vector2;
 use wasm_bindgen::prelude::*;
@@ -7,7 +10,9 @@ use web_sys::console;
 
 const TRIANGLE: &str = "△";
 
-const N: usize = 2;
+/// The number of particles in the universe.
+pub const N: usize = 2;
+
 static mut V_X: [f64; N] = [0.0; N];
 static mut V_Y: [f64; N] = [0.0; N];
 static mut P_X: [f64; N] = [0.0; N];
