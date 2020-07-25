@@ -9,6 +9,6 @@ export type State = {
 }
 
 export type World = {
-  positions: Vector3[]
+  positions: [number, number][]
   rotation: number
 }

@@ -3,7 +3,6 @@ import { KeyValuePair, curry, range, zip } from "ramda"
 import { Nullable } from "@babylonjs/core/types"
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Scene } from "@babylonjs/core/scene"
-import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
 const N = 2
 
@@ -24,7 +23,7 @@ import("../../pkg").then(lib => {
       lib.update(deltaTime)
       const [xs, ys] = [lib.xs(), lib.ys()]
       broker.next({
-        positions: range(0, N).map(i => new Vector3(xs[i], 0, ys[i])),
+        positions: range(0, N).map(i => [xs[i], ys[i]]),
         rotation: lib.rotation(deltaTime),
       })
     })

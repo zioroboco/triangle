@@ -26,7 +26,10 @@ export const setupScene = (baby: Engine): Scene => {
       {
         event: (_, { positions, rotation }) => {
           box.rotate(Vector3.Right(), rotation)
-          positions.forEach((p, i) => (spheres[i].position = p))
+          positions.forEach((p, i) => {
+            spheres[i].position.x = p[0]
+            spheres[i].position.z = p[1]
+          })
         },
         end: () => {},
         error: () => {},
