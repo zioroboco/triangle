@@ -4,7 +4,7 @@ mod util;
 use util::*;
 
 use js_sys::Float64Array;
-use nalgebra::Vector2;
+use nalgebra::*;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
@@ -17,6 +17,33 @@ static mut V_X: [f64; N] = [0.0; N];
 static mut V_Y: [f64; N] = [0.0; N];
 static mut P_X: [f64; N] = [0.0; N];
 static mut P_Y: [f64; N] = [0.0; N];
+
+#[wasm_bindgen]
+pub struct State {
+    positions: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
+    velocities: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
+}
+
+#[wasm_bindgen]
+impl State {
+    /// Initialise state from linear typed arrays of positions and velocities.
+    pub fn init(ps: Box<[f64]>, vs: Box<[f64]>) -> State {
+        State {
+            positions: Matrix::from_columns(&from_linear(ps)),
+            velocities: Matrix::from_columns(&from_linear(vs)),
+        }
+    }
+
+    /// Get a view of current positions as a linear typed array.
+    pub fn positions(&self) -> Float64Array {
+        unsafe { Float64Array::view(self.positions.as_slice()) }
+    }
+
+    /// Get a view of current velocities as a linear typed array.
+    pub fn velocities(&self) -> Float64Array {
+        unsafe { Float64Array::view(self.velocities.as_slice()) }
+    }
+}
 
 #[wasm_bindgen(start)]
 pub fn main() -> Result<(), JsValue> {
