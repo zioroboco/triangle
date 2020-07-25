@@ -11,7 +11,7 @@ use web_sys::console;
 const TRIANGLE: &str = "△";
 
 /// The number of particles in the universe.
-pub const N: usize = 2;
+pub const N: usize = 128;
 
 static mut V_X: [f64; N] = [0.0; N];
 static mut V_Y: [f64; N] = [0.0; N];
@@ -49,19 +49,15 @@ impl State {
 pub fn main() -> Result<(), JsValue> {
     #[cfg(debug_assertions)]
     console_error_panic_hook::set_once();
-
     unsafe {
         console::log_1(&JsValue::from_str(TRIANGLE));
-        for i in 0..N {
-            let d = ((i as i8) * 2 - 1) as f64; // ±1.0
-            V_X[i] = 0.0;
-            V_Y[i] = 1.5 * d;
-            P_X[i] = 2.0 * d;
-            P_Y[i] = 0.0;
-        }
     }
-
     Ok(())
+}
+
+#[wasm_bindgen]
+pub fn size() -> JsValue {
+    JsValue::from_f64(f64::from(N as u32))
 }
 
 #[wasm_bindgen]

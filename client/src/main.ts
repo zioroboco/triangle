@@ -36,7 +36,7 @@ const getState = (scene: Scene): State => {
 
 init({
   camera: {
-    position: new Vector3(0, 2, -5),
+    position: new Vector3(0, 4, -8),
     target: new Vector3(0, 0, 0),
   },
 })

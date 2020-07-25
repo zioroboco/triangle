@@ -5,6 +5,9 @@ import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight"
 import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
+import { range } from "ramda"
+
+const N = 128
 
 export const setupScene = (baby: Engine): Scene => {
   const scene = new Scene(baby)
@@ -12,10 +15,9 @@ export const setupScene = (baby: Engine): Scene => {
 
   new HemisphericLight("light", new Vector3(0, 1, -1), scene)
 
-  const spheres = [
-    MeshBuilder.CreateSphere("one", { diameter: 0.1 }, scene),
-    MeshBuilder.CreateSphere("two", { diameter: 0.1 }, scene),
-  ]
+  const spheres = range(0, N).map(i =>
+    MeshBuilder.CreateSphere(i.toString(), { diameter: 0.05 }, scene)
+  )
 
   import("./broker").then(({ stream, init }) => {
     const scheduler = init(scene)

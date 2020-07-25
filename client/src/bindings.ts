@@ -4,8 +4,6 @@ import { Nullable } from "@babylonjs/core/types"
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Scene } from "@babylonjs/core/scene"
 
-const N = 2
-
 let obs: Nullable<Observer<Scene>>
 let state: { hot: true } & Nullable<
   Record<"ps" | "vs", KeyValuePair<number, number>[]>
@@ -15,9 +13,13 @@ let engine: typeof import("../../pkg")
 
 import("../../pkg").then(lib => {
   engine = lib
+  const N: number = lib.size()
   broker.ready.then(scene => {
+    const init = curry(lib.init)
     if (state?.hot) {
-      range(0, N).map(i => curry(lib.init)(i, ...state!.ps[i], ...state!.vs[i]))
+      range(0, N).map(i => init(i, ...state!.ps[i], ...state!.vs[i]))
+    } else {
+      range(0, N).map(i => init(i, ...random2(3), ...random2(2)))
     }
     obs = scene.onBeforeRenderObservable.add(({ deltaTime }) => {
       lib.update(deltaTime)
@@ -28,6 +30,9 @@ import("../../pkg").then(lib => {
     })
   })
 })
+
+const random2 = (max: number) =>
+  [Math.random(), Math.random()].map(x => x * 2 * max - max)
 
 if (module.hot) {
   module.hot.addDisposeHandler(data => {
