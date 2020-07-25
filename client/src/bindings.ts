@@ -24,7 +24,6 @@ import("../../pkg").then(lib => {
       const [xs, ys] = [lib.xs(), lib.ys()]
       broker.next({
         positions: range(0, N).map(i => [xs[i], ys[i]]),
-        rotation: lib.rotation(deltaTime),
       })
     })
   })

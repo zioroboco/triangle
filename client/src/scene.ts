@@ -12,9 +12,6 @@ export const setupScene = (baby: Engine): Scene => {
 
   new HemisphericLight("light", new Vector3(0, 1, -1), scene)
 
-  const box = MeshBuilder.CreateBox("box", { size: 0.3 }, scene)
-  box.rotate(Vector3.Forward(), Math.PI / 2)
-
   const spheres = [
     MeshBuilder.CreateSphere("one", { diameter: 0.1 }, scene),
     MeshBuilder.CreateSphere("two", { diameter: 0.1 }, scene),
@@ -24,8 +21,7 @@ export const setupScene = (baby: Engine): Scene => {
     const scheduler = init(scene)
     stream.run(
       {
-        event: (_, { positions, rotation }) => {
-          box.rotate(Vector3.Right(), rotation)
+        event: (_, { positions }) => {
           positions.forEach((p, i) => {
             spheres[i].position.x = p[0]
             spheres[i].position.z = p[1]

@@ -117,9 +117,3 @@ pub fn v_xs() -> Float64Array {
 pub fn v_ys() -> Float64Array {
     unsafe { Float64Array::view(&V_Y) }
 }
-
-#[wasm_bindgen]
-pub fn rotation(delta_time: JsValue) -> JsValue {
-    let dt = delta_time.as_f64().unwrap() / 1000.0;
-    JsValue::from_f64(1.0 * dt)
-}

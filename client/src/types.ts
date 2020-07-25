@@ -10,5 +10,4 @@ export type State = {
 
 export type World = {
   positions: [number, number][]
-  rotation: number
 }
