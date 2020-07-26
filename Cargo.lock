@@ -248,6 +248,7 @@ dependencies = [
  "console_error_panic_hook",
  "js-sys",
  "nalgebra",
+ "typenum",
  "wasm-bindgen",
  "web-sys",
 ]
