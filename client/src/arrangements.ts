@@ -1,5 +1,5 @@
 import { DIM_N, DIM_X, DIM_Y, N } from "./types"
-import { Matrix, Vector3 } from "@babylonjs/core/Maths"
+import { Matrix, Vector3 } from "@babylonjs/core/Maths/math.vector"
 import { range } from "ramda"
 
 const rand = (min: number, max: number) => Math.random() * (max - min) + min

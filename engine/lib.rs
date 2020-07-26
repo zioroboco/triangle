@@ -43,7 +43,7 @@ impl State {
       let v = self.velocities.column(i);
       let p = self.positions.column(i);
 
-      let a = -10.0 * p.normalize() / p.norm_squared();
+      let a = -10.0 * p * p.norm().powf(-3.0);
 
       let v_next = v + a * dt;
       let p_next = p + v_next * dt;
