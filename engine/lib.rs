@@ -2,14 +2,14 @@
 
 use js_sys::Float64Array;
 use nalgebra::*;
-use typenum::U1024;
+// use typenum::U1024;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
 const TRIANGLE: &str = "△";
 
 /// The number of particles in the universe.
-pub const N: usize = 1024;
+pub const N: usize = 2;
 
 /// The index offset for the x dimension.
 pub const DIM_X: usize = 0;
@@ -22,8 +22,8 @@ pub const DIM_N: usize = 2;
 
 #[wasm_bindgen]
 pub struct State {
-  positions: Matrix<f64, U2, U1024, ArrayStorage<f64, U2, U1024>>,
-  velocities: Matrix<f64, U2, U1024, ArrayStorage<f64, U2, U1024>>,
+  positions: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
+  velocities: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
 }
 
 #[wasm_bindgen]

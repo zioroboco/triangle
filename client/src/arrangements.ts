@@ -47,4 +47,19 @@ export const line = (length = N): [Float64Array, Float64Array] => {
   return [new Float64Array(ps), new Float64Array(vs)]
 }
 
-export default swarm
+export const simple = (length = N): [Float64Array, Float64Array] => {
+  let ps: number[] = []
+  let vs: number[] = []
+  range(0, length).forEach(i => {
+    const pos = Vector3.Forward().scale(1.8 * ((i % 2) * 2 - 1))
+    const vel = Vector3.Cross(pos, Vector3.Up())
+
+    ps[i * DIM_N + DIM_X] = pos.x
+    ps[i * DIM_N + DIM_Y] = pos.z
+    vs[i * DIM_N + DIM_X] = vel.x
+    vs[i * DIM_N + DIM_Y] = vel.z
+  })
+  return [new Float64Array(ps), new Float64Array(vs)]
+}
+
+export default simple
