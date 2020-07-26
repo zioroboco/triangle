@@ -19,6 +19,7 @@ export const setupScene = (baby: Engine): Scene => {
 
   const point = MeshBuilder.CreateSphere("point", { diameter: 0.05 }, scene)
   const points = range(0, N).map(i => point.createInstance(i.toString()))
+  point.scaling = new Vector3(0, 0, 0)
 
   import("./broker").then(broker => {
     obs = scene.onBeforeRenderObservable.add(({ deltaTime }) => {
