@@ -1,12 +1,11 @@
 import "@babylonjs/inspector"
 import { Engine } from "@babylonjs/core/Engines/engine"
-import { Nullable } from "@babylonjs/core/types"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 import { codes } from "keycode"
 
 import { CameraType, setupCamera } from "./camera"
-import { State } from "./types"
+import { Nullable, State } from "./types"
 import { setupScene } from "./scene"
 
 const canvas = document.getElementById("main") as HTMLCanvasElement

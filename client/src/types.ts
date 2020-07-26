@@ -1,5 +1,7 @@
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 
+export * from "@babylonjs/core/types"
+
 /** The number of particles in the universe. */
 export const N = 800
 
@@ -22,4 +24,8 @@ export type State = {
 
 export type World = {
   positions: [number, number][]
+}
+
+export type Update = {
+  deltaTime: number
 }
