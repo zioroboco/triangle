@@ -32,6 +32,7 @@ const config: Configuration = {
       template: "client/index.html",
     }),
     new WasmPackPlugin({
+      forceMode: "development",
       crateDirectory: __dirname,
       watchDirectories: ["engine"],
     }) as WebpackPluginInstance,

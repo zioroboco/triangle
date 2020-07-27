@@ -1,8 +1,11 @@
 #![allow(unused_unsafe)]
 
+mod nav;
+use nav::*;
+
 use js_sys::Float64Array;
 use nalgebra::*;
-// use typenum::U1024;
+// use typenum::U90;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
@@ -20,36 +23,57 @@ pub const DIM_Y: usize = 1;
 /// The total number of spatial dimensions.
 pub const DIM_N: usize = 2;
 
+/// The degree of discretisation of space.
+pub const NAV_N: usize = 90;
+
+pub const SOI: f64 = 2.0;
+
 #[wasm_bindgen]
 pub struct State {
   positions: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
   velocities: Matrix<f64, U2, U2, ArrayStorage<f64, U2, U2>>,
+  space: Matrix<Vector2<f64>, U90, U90, ArrayStorage<Vector2<f64>, U90, U90>>,
 }
 
 #[wasm_bindgen]
 impl State {
   /// Initialise state from linear typed arrays of positions and velocities.
   pub fn init(ps: Box<[f64]>, vs: Box<[f64]>) -> State {
+    fn to_a(i: usize, j: usize) -> Vector2<f64> {
+      let p = to_unit_soi(i, j, NAV_N);
+      let a = -10.0 * p * p.norm().powf(-3.0);
+      return a;
+    }
+
     State {
       positions: Matrix::from_columns(&from_linear(ps)),
       velocities: Matrix::from_columns(&from_linear(vs)),
+      space: Matrix::from_fn(to_a),
     }
   }
 
   pub fn update(&mut self, delta_time: f64) -> () {
-    let dt = delta_time / 1000.0; // seconds
+    let dt = delta_time / (1000.0 * 4.0); // seconds
 
-    for i in 0..N {
-      let v = self.velocities.column(i);
-      let p = self.positions.column(i);
+    for n in 0..N {
+      let v = self.velocities.column(n);
+      let p = self.positions.column(n);
 
-      let a = -10.0 * p * p.norm().powf(-3.0);
+      let (i, j) = from_soi(p.into_owned(), SOI, NAV_N); // FIXME into_owned
 
-      let v_next = v + a * dt;
+      let v_next: Vector2<f64>;
+      if i < NAV_N && j < NAV_N {
+        unsafe {
+          v_next = v + self.space.get_unchecked((i, j)) * dt;
+        }
+      } else {
+        v_next = v.into_owned(); // FIXME into_owned
+      }
+
       let p_next = p + v_next * dt;
 
-      self.velocities.column_mut(i).copy_from(&v_next);
-      self.positions.column_mut(i).copy_from(&p_next);
+      self.velocities.column_mut(n).copy_from(&v_next);
+      self.positions.column_mut(n).copy_from(&p_next);
     }
   }
 

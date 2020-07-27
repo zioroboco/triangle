@@ -51,7 +51,7 @@ export const simple = (length = N): [Float64Array, Float64Array] => {
   let ps: number[] = []
   let vs: number[] = []
   range(0, length).forEach(i => {
-    const pos = Vector3.Forward().scale(1.8 * ((i % 2) * 2 - 1))
+    const pos = Vector3.Forward().scale(2.0 * ((i % 2) * 2 - 1))
     const vel = Vector3.Cross(pos, Vector3.Up())
 
     ps[i * DIM_N + DIM_X] = pos.x
