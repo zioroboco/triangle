@@ -7,6 +7,7 @@ import HtmlWebpackPlugin from "html-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
 
 const config: Configuration = {
+  mode: "development",
   entry: "./client/src/main",
   devtool: "source-map",
   resolve: {
@@ -32,6 +33,7 @@ const config: Configuration = {
       template: "client/index.html",
     }),
     new WasmPackPlugin({
+      forceMode: "development",
       crateDirectory: __dirname,
       watchDirectories: ["engine"],
     }) as WebpackPluginInstance,
