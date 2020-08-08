@@ -3,7 +3,7 @@ import { Vector3 } from "@babylonjs/core/Maths/math.vector"
 export * from "@babylonjs/core/types"
 
 /** The number of particles in the universe. */
-export const N = 2000
+export const N = 10000
 
 /** The index offset for the x dimension. */
 export const DIM_X = 0
@@ -23,7 +23,7 @@ export type State = {
 }
 
 export type World = {
-  positions: [number, number][]
+  positions: Vector3[]
 }
 
 export type Update = {

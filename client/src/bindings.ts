@@ -1,7 +1,8 @@
 import * as broker from "./broker"
 import { DIM_N, DIM_X, DIM_Y, N, Nullable } from "./types"
+import { Vector3 } from "@babylonjs/core"
 import { range } from "ramda"
-import arrangement from "./arrangements"
+import setup from "./setup"
 
 type Data = Record<"ps" | "vs", Float32Array>
 let state: Nullable<{ hot: true } & Data> = module.hot?.data?.state
@@ -15,10 +16,9 @@ import("../../pkg").then(({ State: Engine }) => {
         engine.update()
         const ps = engine.positions()
         broker.nextWorld({
-          positions: range(0, N).map(i => [
-            ps[i * DIM_N + DIM_X],
-            ps[i * DIM_N + DIM_Y],
-          ]),
+          positions: range(0, N).map(
+            i => new Vector3(ps[i * DIM_N + DIM_X], 0, ps[i * DIM_N + DIM_Y])
+          ),
         })
       },
       end: () => {},
@@ -29,7 +29,7 @@ import("../../pkg").then(({ State: Engine }) => {
   engine?.free()
   engine = state?.hot
     ? Engine.init(state.ps, state.vs)
-    : Engine.init(...arrangement())
+    : Engine.init(...setup())
 })
 
 if (module.hot) {
