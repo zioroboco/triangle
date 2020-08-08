@@ -3,7 +3,7 @@ import { DIM_N, DIM_X, DIM_Y, N, Nullable } from "./types"
 import { range } from "ramda"
 import arrangement from "./arrangements"
 
-type Data = Record<"ps" | "vs", Float64Array>
+type Data = Record<"ps" | "vs", Float32Array>
 let state: Nullable<{ hot: true } & Data> = module.hot?.data?.state
 
 let engine: import("../../pkg").State

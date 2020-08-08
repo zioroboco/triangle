@@ -4,7 +4,7 @@ import { range } from "ramda"
 
 const rand = (min: number, max: number) => Math.random() * (max - min) + min
 
-export const swarm = (length = N): [Float64Array, Float64Array] => {
+export const swarm = (length = N): [Float32Array, Float32Array] => {
   let ps: number[] = []
   let vs: number[] = []
   range(0, length).forEach(i => {
@@ -24,10 +24,10 @@ export const swarm = (length = N): [Float64Array, Float64Array] => {
     vs[i * DIM_N + DIM_X] = vel.x
     vs[i * DIM_N + DIM_Y] = vel.z
   })
-  return [new Float64Array(ps), new Float64Array(vs)]
+  return [new Float32Array(ps), new Float32Array(vs)]
 }
 
-export const line = (length = N): [Float64Array, Float64Array] => {
+export const line = (length = N): [Float32Array, Float32Array] => {
   let ps: number[] = []
   let vs: number[] = []
   range(0, length).forEach(i => {
@@ -44,7 +44,7 @@ export const line = (length = N): [Float64Array, Float64Array] => {
     vs[i * DIM_N + DIM_X] = vel.x
     vs[i * DIM_N + DIM_Y] = vel.z
   })
-  return [new Float64Array(ps), new Float64Array(vs)]
+  return [new Float32Array(ps), new Float32Array(vs)]
 }
 
 export default swarm

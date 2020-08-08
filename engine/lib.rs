@@ -1,6 +1,6 @@
 #![allow(unused_unsafe)]
 
-use js_sys::Float64Array;
+use js_sys::Float32Array;
 use nalgebra::*;
 use typenum::U800;
 use wasm_bindgen::prelude::*;
@@ -22,21 +22,21 @@ pub const DIM_N: usize = 2;
 
 #[wasm_bindgen]
 pub struct State {
-  positions: Matrix<f64, U2, U800, ArrayStorage<f64, U2, U800>>,
-  velocities: Matrix<f64, U2, U800, ArrayStorage<f64, U2, U800>>,
+  positions: Matrix<f32, U2, U800, ArrayStorage<f32, U2, U800>>,
+  velocities: Matrix<f32, U2, U800, ArrayStorage<f32, U2, U800>>,
 }
 
 #[wasm_bindgen]
 impl State {
   /// Initialise state from linear typed arrays of positions and velocities.
-  pub fn init(ps: Box<[f64]>, vs: Box<[f64]>) -> State {
+  pub fn init(ps: Box<[f32]>, vs: Box<[f32]>) -> State {
     State {
       positions: Matrix::from_columns(&from_linear(ps)),
       velocities: Matrix::from_columns(&from_linear(vs)),
     }
   }
 
-  pub fn update(&mut self, delta_time: f64) -> () {
+  pub fn update(&mut self, delta_time: f32) -> () {
     let dt = delta_time / 1000.0; // seconds
 
     for i in 0..N {
@@ -54,18 +54,18 @@ impl State {
   }
 
   /// Get a view of current positions as a linear typed array.
-  pub fn positions(&self) -> Float64Array {
-    unsafe { Float64Array::view(self.positions.as_slice()) }
+  pub fn positions(&self) -> Float32Array {
+    unsafe { Float32Array::view(self.positions.as_slice()) }
   }
 
   /// Get a view of current velocities as a linear typed array.
-  pub fn velocities(&self) -> Float64Array {
-    unsafe { Float64Array::view(self.velocities.as_slice()) }
+  pub fn velocities(&self) -> Float32Array {
+    unsafe { Float32Array::view(self.velocities.as_slice()) }
   }
 }
 
 /// Destructure an array of `Vector2` elements from a linear `Float64Array`.
-fn from_linear(array: Box<[f64]>) -> [Vector2<f64>; N] {
+fn from_linear(array: Box<[f32]>) -> [Vector2<f32>; N] {
   let mut v = [Vector2::new(0.0, 0.0); N];
   for i in 0..N {
     v[i].x = array[i * DIM_N + DIM_X];
