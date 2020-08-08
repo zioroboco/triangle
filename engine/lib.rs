@@ -7,7 +7,7 @@ use web_sys::console;
 const TRIANGLE: &str = "△";
 
 /// The number of particles in the universe.
-pub const N: usize = 800;
+pub const N: usize = 2000;
 pub const LINEAR_N: usize = N * DIM_N;
 
 /// The index offset for the x dimension.
