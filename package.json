@@ -11,8 +11,8 @@
     "lint:fix": "yarn -s tsc:client && yarn -s tsc:node && eslint . --ext .ts --fix && prettier --write '**/*'"
   },
   "dependencies": {
-    "@babylonjs/core": "^4.1.0",
-    "@babylonjs/inspector": "^4.1.0",
+    "@babylonjs/core": "^4.2.0-alpha.31",
+    "@babylonjs/inspector": "^4.2.0-alpha.31",
     "@most/core": "^1.5.0",
     "@most/scheduler": "^1.2.3",
     "@most/types": "^1.0.2",
