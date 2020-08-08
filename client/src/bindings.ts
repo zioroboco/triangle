@@ -11,8 +11,8 @@ let engine: import("../../pkg").State
 import("../../pkg").then(({ State: Engine }) => {
   broker.updateStream.run(
     {
-      event: (_, { deltaTime }) => {
-        engine.update(deltaTime)
+      event: () => {
+        engine.update()
         const ps = engine.positions()
         broker.nextWorld({
           positions: range(0, N).map(i => [

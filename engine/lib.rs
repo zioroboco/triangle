@@ -1,8 +1,6 @@
 #![allow(unused_unsafe)]
 
-use js_sys::Float32Array;
-use nalgebra::*;
-use typenum::U800;
+use ultraviolet::Vec2;
 use wasm_bindgen::prelude::*;
 use web_sys::console;
 
@@ -10,6 +8,7 @@ const TRIANGLE: &str = "△";
 
 /// The number of particles in the universe.
 pub const N: usize = 800;
+pub const LINEAR_N: usize = N * DIM_N;
 
 /// The index offset for the x dimension.
 pub const DIM_X: usize = 0;
@@ -22,8 +21,8 @@ pub const DIM_N: usize = 2;
 
 #[wasm_bindgen]
 pub struct State {
-  positions: Matrix<f32, U2, U800, ArrayStorage<f32, U2, U800>>,
-  velocities: Matrix<f32, U2, U800, ArrayStorage<f32, U2, U800>>,
+  positions: [Vec2; N],
+  velocities: [Vec2; N],
 }
 
 #[wasm_bindgen]
@@ -31,42 +30,52 @@ impl State {
   /// Initialise state from linear typed arrays of positions and velocities.
   pub fn init(ps: Box<[f32]>, vs: Box<[f32]>) -> State {
     State {
-      positions: Matrix::from_columns(&from_linear(ps)),
-      velocities: Matrix::from_columns(&from_linear(vs)),
+      positions: from_linear(ps),
+      velocities: from_linear(vs),
     }
   }
 
-  pub fn update(&mut self, delta_time: f32) -> () {
-    let dt = delta_time / 1000.0; // seconds
+  pub fn update(&mut self) -> () {
+    let dt = 10.0 / 1000.0;
 
     for i in 0..N {
-      let v = self.velocities.column(i);
-      let p = self.positions.column(i);
+      let v: Vec2 = self.velocities[i];
+      let p: Vec2 = self.positions[i];
 
-      let a = -10.0 * p * p.norm().powf(-3.0);
+      let a: Vec2 = -10.0 * p.normalized() / p.mag_sq();
 
-      let v_next = v + a * dt;
-      let p_next = p + v_next * dt;
+      let v_next: Vec2 = v + a * dt;
+      let p_next: Vec2 = p + v_next * dt;
 
-      self.velocities.column_mut(i).copy_from(&v_next);
-      self.positions.column_mut(i).copy_from(&p_next);
+      self.velocities[i] = v_next;
+      self.positions[i] = p_next;
     }
   }
 
   /// Get a view of current positions as a linear typed array.
-  pub fn positions(&self) -> Float32Array {
-    unsafe { Float32Array::view(self.positions.as_slice()) }
+  pub fn positions(&self) -> Box<[f32]> {
+    let mut linear_positions: [f32; LINEAR_N] = [0.0; LINEAR_N];
+    for i in 0..N {
+      linear_positions[i * DIM_N + DIM_X] = self.positions[i].x;
+      linear_positions[i * DIM_N + DIM_Y] = self.positions[i].y;
+    }
+    Box::new(linear_positions)
   }
 
   /// Get a view of current velocities as a linear typed array.
-  pub fn velocities(&self) -> Float32Array {
-    unsafe { Float32Array::view(self.velocities.as_slice()) }
+  pub fn velocities(&self) -> Box<[f32]> {
+    let mut linear_velocities: [f32; LINEAR_N] = [0.0; LINEAR_N];
+    for i in 0..N {
+      linear_velocities[i * DIM_N + DIM_X] = self.velocities[i].x;
+      linear_velocities[i * DIM_N + DIM_Y] = self.velocities[i].y;
+    }
+    Box::new(linear_velocities)
   }
 }
 
-/// Destructure an array of `Vector2` elements from a linear `Float64Array`.
-fn from_linear(array: Box<[f32]>) -> [Vector2<f32>; N] {
-  let mut v = [Vector2::new(0.0, 0.0); N];
+/// Destructure an array of `Vec2` elements from a linear `Float32Array`.
+fn from_linear(array: Box<[f32]>) -> [Vec2; N] {
+  let mut v = [Vec2::new(0.0, 0.0); N];
   for i in 0..N {
     v[i].x = array[i * DIM_N + DIM_X];
     v[i].y = array[i * DIM_N + DIM_Y];
