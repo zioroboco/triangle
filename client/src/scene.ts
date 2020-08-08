@@ -13,6 +13,7 @@ let obs: Nullable<Observer<Scene>>
 
 export const setupScene = (baby: Engine): Scene => {
   const scene = new Scene(baby)
+  scene.useRightHandedSystem = true
   scene.clearColor = Color4.FromColor3(Color3.Black())
 
   new HemisphericLight("light", new Vector3(0, 1, -1), scene)
