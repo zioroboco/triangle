@@ -45,8 +45,6 @@ const config: Configuration = {
   },
   experiments: {
     asyncWebAssembly: true,
-    importAsync: true,
-    importAwait: true,
   },
   devServer: {
     hot: true,
