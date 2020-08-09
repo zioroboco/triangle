@@ -30,8 +30,7 @@ export const setupScene = (baby: Engine): Scene => {
       {
         event: (_, { positions }) => {
           positions.forEach((p, i) => {
-            points[i].position.x = p[0]
-            points[i].position.z = p[1]
+            points[i].position = p
           })
         },
         end: () => {},

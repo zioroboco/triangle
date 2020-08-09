@@ -1,5 +1,5 @@
 import * as broker from "./broker"
-import { DIM_N, DIM_X, DIM_Y, N, Nullable } from "./types"
+import { DIM_N, DIM_X, DIM_Y, N, Nullable, WorldVector } from "./types"
 import { range } from "ramda"
 import arrangement from "./arrangements"
 
@@ -15,10 +15,9 @@ import("../../pkg").then(({ State: Engine }) => {
         engine.update()
         const ps = engine.positions()
         broker.nextWorld({
-          positions: range(0, N).map(i => [
-            ps[i * DIM_N + DIM_X],
-            ps[i * DIM_N + DIM_Y],
-          ]),
+          positions: range(0, N).map(
+            i => new WorldVector(ps[i * DIM_N + DIM_X], ps[i * DIM_N + DIM_Y])
+          ),
         })
       },
       end: () => {},

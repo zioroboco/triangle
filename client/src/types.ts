@@ -22,8 +22,15 @@ export type State = {
   inspector?: boolean
 }
 
+/** Vector in the xz plane. */
+export class WorldVector extends Vector3 {
+  constructor(x?: number, z?: number) {
+    super(x, 0, z)
+  }
+}
+
 export type World = {
-  positions: [number, number][]
+  positions: WorldVector[]
 }
 
 export type Update = {
