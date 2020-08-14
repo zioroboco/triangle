@@ -4,6 +4,7 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "target": "es2019",
+    "jsx": "react",
     "moduleResolution": "node",
     "isolatedModules": true,
     "sourceMap": true

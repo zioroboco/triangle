@@ -1,4 +1,6 @@
 import "@babylonjs/inspector"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
 import { Engine } from "@babylonjs/core/Engines/engine"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
@@ -6,9 +8,12 @@ import { codes } from "keycode"
 
 import { CameraType, setupCamera } from "./camera"
 import { Nullable, State } from "./types"
+import { Root } from "./Root"
 import { setupScene } from "./scene"
 
-const canvas = document.getElementById("main") as HTMLCanvasElement
+ReactDOM.render(React.createElement(Root, {}), document.getElementById("root"))
+
+const canvas = document.getElementById("main-canvas") as HTMLCanvasElement
 
 const antialias = true
 let baby = new Engine(canvas, antialias)
