@@ -1,0 +1,5 @@
+.particleCount {
+  @apply text-xl;
+  @apply text-white;
+  @apply p-4;
+}

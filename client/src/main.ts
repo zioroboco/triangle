@@ -8,8 +8,8 @@ import { codes } from "keycode"
 
 import { CameraType, setupCamera } from "./camera"
 import { Nullable, State } from "./types"
-import { Root } from "./Root"
 import { setupScene } from "./scene"
+import Root from "./components/Root"
 
 ReactDOM.render(React.createElement(Root, {}), document.getElementById("root"))
 
