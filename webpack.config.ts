@@ -3,6 +3,7 @@ import {
   HotModuleReplacementPlugin,
   WebpackPluginInstance,
 } from "webpack"
+import { resolve } from "path"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
@@ -46,7 +47,8 @@ const config = (env: any): Configuration => {
                 importLoaders: 1,
                 sourceMap: true,
                 modules: {
-                  localIdentName: "[name]__[local]--[hash:base64:5]",
+                  localIdentName: "[path][name]__[local]",
+                  localIdentContext: resolve(__dirname, "client/src"),
                 },
               },
             },
