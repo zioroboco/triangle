@@ -7,5 +7,6 @@ module.exports = {
         ignoreAtRules: ["tailwind"],
       },
     ],
+    "block-no-empty": null,
   },
 }

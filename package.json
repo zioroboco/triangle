@@ -20,12 +20,14 @@
     "@types/ramda": "^0.27.14",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
+    "@xstate/react": "^0.8.1",
     "keycode": "^2.2.0",
     "most-subject": "^6.0.0",
     "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "typescript-plugin-css-modules": "^2.4.0"
+    "typescript-plugin-css-modules": "^2.4.0",
+    "xstate": "^4.11.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",

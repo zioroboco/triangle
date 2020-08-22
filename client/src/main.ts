@@ -8,8 +8,13 @@ import { codes } from "keycode"
 
 import { CameraType, setupCamera } from "./camera"
 import { Nullable, State } from "./types"
+import { Root } from "./components/Root"
 import { setupScene } from "./scene"
-import Root from "./components/Root"
+
+import { interpret } from "xstate"
+import { pauseMachine } from "./machine"
+export const pauseService = interpret(pauseMachine, { devTools: true })
+pauseService.start()
 
 ReactDOM.render(React.createElement(Root, {}), document.getElementById("root"))
 

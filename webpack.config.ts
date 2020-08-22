@@ -45,7 +45,6 @@ const config = (env: any): Configuration => {
               loader: "css-loader",
               options: {
                 importLoaders: 1,
-                sourceMap: true,
                 modules: {
                   localIdentName: "[path][name]__[local]",
                   localIdentContext: resolve(__dirname, "client/src"),
