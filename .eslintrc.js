@@ -1,7 +1,11 @@
 module.exports = {
   root: true,
   env: { es6: true, node: true },
-  extends: ["prettier", "prettier/@typescript-eslint"],
+  extends: [
+    "prettier",
+    "prettier/@typescript-eslint",
+    "plugin:react-hooks/recommended",
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     sourceType: "module",
