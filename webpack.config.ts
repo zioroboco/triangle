@@ -25,7 +25,13 @@ const config = (env: any): Configuration => {
             {
               loader: "babel-loader",
               options: {
-                plugins: mode === "development" ? ["react-refresh/babel"] : [],
+                plugins:
+                  mode === "development"
+                    ? [
+                        "react-refresh/babel",
+                        "@babel/plugin-syntax-top-level-await",
+                      ]
+                    : [],
               },
             },
             {
@@ -75,6 +81,7 @@ const config = (env: any): Configuration => {
     },
     experiments: {
       asyncWebAssembly: true,
+      topLevelAwait: true,
     },
     devServer: {
       hot: true,
