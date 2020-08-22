@@ -7,6 +7,7 @@ import { N, Nullable } from "./types"
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
+import { pauseService } from "./main"
 import { range } from "ramda"
 
 let obs: Nullable<Observer<Scene>>
@@ -24,7 +25,9 @@ export const setupScene = (baby: Engine): Scene => {
 
   import("./broker").then(broker => {
     obs = scene.onBeforeRenderObservable.add(({ deltaTime }) => {
-      broker.nextUpdate({ deltaTime })
+      if (pauseService.state.value !== "paused") {
+        broker.nextUpdate({ deltaTime })
+      }
     })
     broker.worldStream.run(
       {

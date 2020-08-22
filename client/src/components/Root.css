@@ -1,5 +1,13 @@
+.menuBar {
+  @apply p-1;
+  @apply flex flex-row;
+}
+
 .particleCount {
-  @apply text-xl;
-  @apply text-white;
-  @apply p-4;
+  @apply text-xl m-1;
+}
+
+.pauseButton {
+  @apply bg-gray-900 m-1;
+  @apply px-2 rounded;
 }
