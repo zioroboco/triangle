@@ -11,10 +11,8 @@ import { Nullable, State } from "./types"
 import { Root } from "./components/Root"
 import { setupScene } from "./scene"
 
-import { interpret } from "xstate"
-import { pauseMachine } from "./machine"
-export const pauseService = interpret(pauseMachine, { devTools: true })
-pauseService.start()
+import PauseWorker from "./pause.worker"
+export const pauseWorker = new PauseWorker()
 
 ReactDOM.render(React.createElement(Root, {}), document.getElementById("root"))
 
