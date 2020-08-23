@@ -7,10 +7,15 @@ import { N, Nullable } from "./types"
 import { Observer } from "@babylonjs/core/Misc/observable"
 import { Scene } from "@babylonjs/core/scene"
 import { Vector3 } from "@babylonjs/core/Maths/math.vector"
-import { pauseService } from "./main"
 import { range } from "ramda"
 
 let obs: Nullable<Observer<Scene>>
+
+import { pauseWorker } from "./main"
+let isPaused: boolean = false
+setImmediate(() => {
+  pauseWorker.onmessage = event => (isPaused = event.data === "paused")
+})
 
 export const setupScene = (baby: Engine): Scene => {
   const scene = new Scene(baby)
@@ -25,7 +30,7 @@ export const setupScene = (baby: Engine): Scene => {
 
   import("./broker").then(broker => {
     obs = scene.onBeforeRenderObservable.add(({ deltaTime }) => {
-      if (pauseService.state.value !== "paused") {
+      if (!isPaused) {
         broker.nextUpdate({ deltaTime })
       }
     })
