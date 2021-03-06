@@ -6,10 +6,11 @@
   "scripts": {
     "build": "webpack --env.production",
     "start": "webpack-dev-server",
+    "compile": "yarn -s build && yarn -s tsc:client && yarn -s tsc:node",
     "tsc:client": "tsc -p ./client/tsconfig.json --noEmit",
     "tsc:node": "tsc -p ./tsconfig.json --noEmit",
-    "lint": "yarn -s tsc:client && yarn -s tsc:node && eslint . --ext .ts && prettier --check '**/*'",
-    "lint:fix": "yarn -s tsc:client && yarn -s tsc:node && eslint . --ext .ts --fix && prettier --write '**/*'"
+    "lint": "eslint . --ext .ts && prettier --check '**/*'",
+    "lint:fix": "eslint . --ext .ts --fix && prettier --write '**/*'"
   },
   "dependencies": {
     "@babylonjs/core": "^4.2.0-alpha.32",
