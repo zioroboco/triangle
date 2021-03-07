@@ -1,5 +1,6 @@
 /node_modules/
 /dist/
+/public/
 /pkg/
 /target/
 yarn-*.log

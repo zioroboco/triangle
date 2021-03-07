@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --env.production",
     "start": "webpack-dev-server",
-    "compile": "yarn -s build && yarn -s tsc:client && yarn -s tsc:node",
+    "compile": "yarn -s tsc:client && yarn -s tsc:node",
     "tsc:client": "tsc -p ./client/tsconfig.json --noEmit",
     "tsc:node": "tsc -p ./tsconfig.json --noEmit",
     "lint": "eslint . --ext .ts && prettier --check '**/*'",

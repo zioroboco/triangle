@@ -12,6 +12,9 @@ const config = (env: any): Configuration => {
   const mode = env?.production ? "production" : "development"
   return {
     mode,
+    output: {
+      path: resolve(__dirname, "public"),
+    },
     entry: ["./client/global.css", "./client/src/main"],
     devtool: "source-map",
     resolve: {
