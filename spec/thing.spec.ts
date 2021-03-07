@@ -1,7 +1,7 @@
-const PORT = process.env.PORT ?? "8080"
+const TEST_URL = process.env.TEST_URL ?? "http://localhost:8080"
 
 beforeAll(async () => {
-  await page.goto(`http://localhost:${PORT}`)
+  await page.goto(TEST_URL)
 })
 
 afterAll(async () => {

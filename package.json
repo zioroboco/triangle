@@ -7,7 +7,8 @@
   "scripts": {
     "build": "webpack --env.production",
     "start": "webpack-dev-server",
-    "test:integration": "start-server-and-test 'yarn -s start --port=5555' http://localhost:5555 'PORT=5555 jest'",
+    "test:local": "start-server-and-test 'yarn -s start --port=5555' http://localhost:5555 'TEST_URL=http://localhost:5555 jest'",
+    "test": "jest",
     "compile": "yarn -s tsc:client && yarn -s tsc:node",
     "tsc:client": "tsc -p ./client/tsconfig.json --noEmit",
     "tsc:node": "tsc -p ./tsconfig.json --noEmit",
