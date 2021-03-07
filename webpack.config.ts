@@ -1,12 +1,21 @@
+import * as execa from "execa"
 import {
   Configuration,
   HotModuleReplacementPlugin,
   WebpackPluginInstance,
 } from "webpack"
+import { repository } from "./package.json"
 import { resolve } from "path"
 import HtmlWebpackPlugin from "html-webpack-plugin"
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin"
 import WasmPackPlugin from "@wasm-tool/wasm-pack-plugin"
+
+const commitInfo = () => {
+  const hash = execa.sync("git", ["rev-parse", "HEAD"]).stdout
+  const [_, user, repo] = repository.match(/\:(.+)\/(.+)$/)!
+  if (!user || !repo) throw new Error(`expected "github:user/repo"`)
+  return `https://github.com/${user}/${repo}/commit/${hash}`
+}
 
 const config = (env: any): Configuration => {
   const mode = env?.production ? "production" : "development"
@@ -70,6 +79,7 @@ const config = (env: any): Configuration => {
       new HotModuleReplacementPlugin(),
       new HtmlWebpackPlugin({
         template: "client/index.html",
+        meta: { commit: commitInfo() },
       }),
       new WasmPackPlugin({
         forceMode: "development",
