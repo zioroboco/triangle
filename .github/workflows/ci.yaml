@@ -83,5 +83,5 @@ jobs:
             ${{ runner.os }}-${{ hashFiles('yarn.lock') }}-
             ${{ runner.os }}-
       - uses: microsoft/playwright-github-action@v1
-      - run: yarn install --frozen-lockfile
+      - run: npm install
       - run: yarn test
