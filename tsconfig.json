@@ -7,5 +7,9 @@
     "noFallthroughCasesInSwitch": true,
     "strict": true
   },
-  "include": ["webpack.config.ts"]
+  "files": [
+    "node_modules/jest-playwright-preset/types/global.d.ts",
+    "node_modules/expect-playwright/global.d.ts"
+  ],
+  "include": ["spec/**/*", "webpack.config.ts"]
 }
