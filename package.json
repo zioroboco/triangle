@@ -5,8 +5,8 @@
     "node": "^14.16.0"
   },
   "scripts": {
-    "build": "webpack --env.production",
-    "start": "webpack-dev-server",
+    "build": "webpack --mode=production",
+    "start": "webpack serve --mode=development",
     "test:local": "start-server-and-test 'yarn -s start --port=5555' http://localhost:5555 'TEST_URL=http://localhost:5555 jest'",
     "test": "jest",
     "compile": "yarn -s tsc:client && yarn -s tsc:node",
@@ -37,11 +37,11 @@
     "@babel/plugin-syntax-top-level-await": "^7.12.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.1",
     "@types/classnames": "^2.2.10",
-    "@types/html-webpack-plugin": "*",
+    "@types/html-webpack-plugin": "3.2.4",
     "@types/jest": "^26.0.20",
-    "@types/node": "14.0.27",
-    "@types/webpack-dev-server": "*",
-    "@types/webpack-env": "*",
+    "@types/node": "14.14.32",
+    "@types/webpack-dev-server": "3.11.1",
+    "@types/webpack-env": "1.16.0",
     "@typescript-eslint/eslint-plugin": "^4.0.0-alpha.11",
     "@typescript-eslint/parser": "^4.0.0-alpha.11",
     "@wasm-tool/wasm-pack-plugin": "^1.3.1",
@@ -57,7 +57,7 @@
     "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "execa": "^5.0.0",
     "expect-playwright": "^0.3.2",
-    "html-webpack-plugin": "^4.3.0",
+    "html-webpack-plugin": "^5.3.0",
     "jest": "^26.6.3",
     "jest-playwright": "^0.0.1",
     "jest-playwright-preset": "^1.4.7",
@@ -76,8 +76,8 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",
     "typescript-plugin-css-modules": "^3.2.0",
-    "webpack": "^5.0.0-beta.26",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.24.3",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
